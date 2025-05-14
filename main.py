@@ -70,6 +70,7 @@ def find_details():
 # Init window
 window = Tk()
 window.title('PPM | Pendolino Password Manager')
+window.resizable(False, False)gi
 window.config(padx=20, pady=20)
 
 # Make columns expandable
