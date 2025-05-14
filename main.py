@@ -67,48 +67,54 @@ def find_details():
         finally:
             website_ent.delete(0, END)
 # ---------------------------- UI SETUP ------------------------------- #
-#Init window
+# Init window
 window = Tk()
 window.title('PPM | Pendolino Password Manager')
-window.config(padx=50, pady=50)
+window.resizable(False, False)
+window.config(padx=20, pady=20)
 
-#ROW 0 (Canvas)
-canvas = Canvas(width=200, height=200)
+# Make columns expandable
+window.columnconfigure(0, weight=1)
+window.columnconfigure(1, weight=2)
+window.columnconfigure(2, weight=1)
+
+# ROW 0: Centered Logo
+canvas = Canvas(width=200, height=200, highlightthickness=0)
 logo_img = PhotoImage(file='logo.png')
 canvas.create_image(100, 100, image=logo_img)
 canvas.grid(column=0, row=0, columnspan=3)
 
-#ROW 1
+# ROW 1: Website
 website_lbl = Label(text='Website:')
-website_lbl.grid(column=0, row=1)
+website_lbl.grid(column=0, row=1, sticky=E, pady=5)
 
-search_btn = Button(text='Search', width=15, command= find_details)
-search_btn.grid(column=2, row=1, sticky= E)
-
-website_ent = Entry(width=32)
+website_ent = Entry()
+website_ent.grid(column=1, row=1, sticky=E+W, padx=5)
 website_ent.focus()
-website_ent.grid(column=1, row=1, columnspan=2, sticky=W)
 
-#ROW 2
+search_btn = Button(text='Search', command=find_details)
+search_btn.grid(column=2, row=1, sticky=W, padx=5)
+
+# ROW 2: Email/Username
 user_mail_lbl = Label(text='Email/Username:')
-user_mail_lbl.grid(column=0, row=2)
+user_mail_lbl.grid(column=0, row=2, sticky=E, pady=5)
 
-user_mail_ent = Entry(width=52)
+user_mail_ent = Entry()
 user_mail_ent.insert(0, 'example@email.eu')
-user_mail_ent.grid(column=1, row=2, columnspan=2, sticky=W)
+user_mail_ent.grid(column=1, row=2, columnspan=2, sticky=E+W, padx=5)
 
-#ROW 3
+# ROW 3: Password
 password_lbl = Label(text='Password:')
-password_lbl.grid(column=0, row=3)
+password_lbl.grid(column=0, row=3, sticky=E, pady=5)
 
-password_ent = Entry(width=32)
-password_ent.grid(column=1, row=3, sticky=W)
+password_ent = Entry()
+password_ent.grid(column=1, row=3, sticky=E+W, padx=5)
 
-gen_pass_btn = Button(text='Generate password', width=15, command=psw_generator)
-gen_pass_btn.grid(column=2, row=3, sticky=E)
+gen_pass_btn = Button(text='Generate password', command=psw_generator)
+gen_pass_btn.grid(column=2, row=3, sticky=W, padx=5)
 
-#ROW 4
-add_btn = Button(text='Add', width=44, command=save)
-add_btn.grid(column=1, row=4, columnspan=2, sticky=W)
+# ROW 4: Add Button
+add_btn = Button(text='Add', command=save)
+add_btn.grid(column=1, row=4, columnspan=2, sticky=E+W, pady=10, padx=5)
 
 window.mainloop()
